@@ -1,0 +1,25 @@
+.flight-filter {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.flight-filter .card-body {
+  padding: 1.25rem;
+}
+
+.flight-filter .form-label {
+  margin-bottom: 0.5rem;
+}
+
+.flight-filter .btn-close {
+  opacity: 0.8;
+}
+
+.flight-filter .btn-close:hover {
+  opacity: 1;
+}
+
+.badge .btn-close {
+  margin-left: 0.25rem;
+  padding: 0.5rem;
+}

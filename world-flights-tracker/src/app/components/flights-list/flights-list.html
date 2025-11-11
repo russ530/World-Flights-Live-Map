@@ -1,0 +1,107 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="mb-1">🛫 Voli Attivi in Tempo Reale</h2>
+      <p class="text-muted mb-0" *ngIf="!loading && !error">
+        {{ filteredFlights.length }} di {{ flights.length }} voli
+        <span *ngIf="currentFilters.airline || currentFilters.status || currentFilters.departureAirport || currentFilters.arrivalAirport" 
+              class="text-primary">(filtrati)</span>
+      </p>
+    </div>
+    <button 
+      class="btn btn-primary" 
+      (click)="refreshFlights()"
+      [disabled]="loading">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+      {{ loading ? 'Caricamento...' : '🔄 Aggiorna' }}
+    </button>
+  </div>
+
+  <!-- Componente Filtri -->
+  <app-flight-filter 
+    (filtersChanged)="onFiltersChanged($event)">
+  </app-flight-filter>
+
+  <!-- Resto del template rimane uguale ma usa filteredFlights invece di flights -->
+  <!-- Messaggio di caricamento -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Caricamento...</span>
+    </div>
+    <p class="mt-2">Caricamento voli in corso...</p>
+  </div>
+
+  <!-- Messaggio di errore -->
+  <div *ngIf="error && !loading" class="alert alert-danger" role="alert">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadFlights()">
+      Riprova
+    </button>
+  </div>
+
+  <!-- Tabella voli migliorata -->
+  <div *ngIf="!loading && !error" class="table-responsive">
+    <table class="table table-striped table-hover table-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Volo</th>
+          <th>Compagnia</th>
+          <th>Partenza</th>
+          <th>Arrivo</th>
+          <th>Data</th>
+          <th>Partenza</th>
+          <th>Arrivo</th>
+          <th>Durata</th>
+          <th>Stato</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of filteredFlights" class="flight-row">
+          <td>
+            <strong>{{ flight.flight.number }}</strong>
+          </td>
+          <td>
+            <span class="airline-icon me-1">
+              {{ getAirlineIcon(flight.airline.iata) }}
+            </span>
+            {{ flight.airline.name }}
+          </td>
+          <td>
+            <div class="airport-code">{{ flight.departure.iata }}</div>
+            <small class="text-muted">{{ flight.departure.airport }}</small>
+          </td>
+          <td>
+            <div class="airport-code">{{ flight.arrival.iata }}</div>
+            <small class="text-muted">{{ flight.arrival.airport }}</small>
+          </td>
+          <td>{{ formatDate(flight.departure.scheduled) }}</td>
+          <td>
+            <strong>{{ formatTime(flight.departure.scheduled) }}</strong>
+          </td>
+          <td>
+            <strong>{{ formatTime(flight.arrival.scheduled) }}</strong>
+          </td>
+          <td>
+            <span class="duration-badge">
+              {{ calculateDuration(flight.departure.scheduled, flight.arrival.scheduled) }}
+            </span>
+          </td>
+          <td>
+            <span [class]="getStatusBadgeClass(flight.flight_status)" class="badge">
+              {{ getStatusText(flight.flight_status) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="filteredFlights.length === 0" class="text-center py-4">
+      <p class="text-muted" *ngIf="flights.length > 0">
+        Nessun volo trovato con i filtri selezionati.
+      </p>
+      <p class="text-muted" *ngIf="flights.length === 0">
+        Nessun volo attivo trovato.
+      </p>
+    </div>
+  </div>
+</div>

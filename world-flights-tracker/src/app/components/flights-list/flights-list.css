@@ -1,0 +1,90 @@
+.table th {
+  border-top: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+.flight-row:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+}
+
+/* Stili per gli stati dei voli */
+.badge-active {
+  background-color: #198754;
+  color: white;
+}
+
+.badge-scheduled {
+  background-color: #0dcaf0;
+  color: #000;
+}
+
+.badge-landed {
+  background-color: #6c757d;
+  color: white;
+}
+
+.badge-cancelled {
+  background-color: #dc3545;
+  color: white;
+}
+
+.badge-incident {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.badge-diverted {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.badge-unknown {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.airline-icon {
+  font-size: 1.1rem;
+}
+
+.airport-code {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.duration-badge {
+  background-color: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.8rem;
+  }
+  
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.3em 0.6em;
+  }
+}

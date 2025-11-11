@@ -1,0 +1,18 @@
+<div class="flight-map-container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">🗺️ Mappa Voli in Tempo Reale</h5>
+    <div class="map-controls">
+      <button class="btn btn-outline-primary btn-sm" (click)="refreshMap()">
+        🔄 Aggiorna Mappa
+      </button>
+    </div>
+  </div>
+  
+  <div class="map-info mb-2">
+    <small class="text-muted">
+      Voli mostrati sulla mappa: {{ getFlightsWithCoordinates().length }}
+    </small>
+  </div>
+
+  <div id="flight-map" class="flight-map"></div>
+</div>

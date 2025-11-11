@@ -1,0 +1,95 @@
+<div class="flight-filter card mb-4">
+  <div class="card-body">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="form-label small fw-bold">Compagnia Aerea</label>
+        <select 
+          class="form-select form-select-sm" 
+          [(ngModel)]="filterOptions.airline"
+          (ngModelChange)="updateFilters()">
+          <option value="">Tutte le compagnie</option>
+          <option *ngFor="let airline of airlines" [value]="airline">
+            {{ airline }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label small fw-bold">Stato Volo</label>
+        <select 
+          class="form-select form-select-sm" 
+          [(ngModel)]="filterOptions.status"
+          (ngModelChange)="updateFilters()">
+          <option value="">Tutti gli stati</option>
+          <option *ngFor="let status of statuses" [value]="status">
+            {{ getStatusText(status) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label small fw-bold">Partenza</label>
+        <select 
+          class="form-select form-select-sm" 
+          [(ngModel)]="filterOptions.departureAirport"
+          (ngModelChange)="updateFilters()">
+          <option value="">Tutti gli aeroporti</option>
+          <option *ngFor="let airport of airports" [value]="airport">
+            {{ airport }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label small fw-bold">Arrivo</label>
+        <select 
+          class="form-select form-select-sm" 
+          [(ngModel)]="filterOptions.arrivalAirport"
+          (ngModelChange)="updateFilters()">
+          <option value="">Tutti gli aeroporti</option>
+          <option *ngFor="let airport of airports" [value]="airport">
+            {{ airport }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label small fw-bold text-white">.</label>
+        <div class="d-grid">
+          <button 
+            class="btn btn-outline-secondary btn-sm" 
+            (click)="resetFilters()"
+            [disabled]="!hasActiveFilters()">
+            🔄 Reset Filtri
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtri attivi -->
+    <div *ngIf="hasActiveFilters()" class="mt-3">
+      <div class="d-flex flex-wrap gap-2">
+        <span *ngIf="filterOptions.airline" class="badge bg-primary">
+          Compagnia: {{ filterOptions.airline }} 
+          <button class="btn-close btn-close-white ms-1" style="font-size: 0.6rem;" 
+                  (click)="removeFilter('airline')"></button>
+        </span>
+        <span *ngIf="filterOptions.status" class="badge bg-info text-dark">
+          Stato: {{ getStatusText(filterOptions.status) }}
+          <button class="btn-close ms-1" style="font-size: 0.6rem;" 
+                  (click)="removeFilter('status')"></button>
+        </span>
+        <span *ngIf="filterOptions.departureAirport" class="badge bg-success">
+          Partenza: {{ filterOptions.departureAirport }}
+          <button class="btn-close btn-close-white ms-1" style="font-size: 0.6rem;" 
+                  (click)="removeFilter('departureAirport')"></button>
+        </span>
+        <span *ngIf="filterOptions.arrivalAirport" class="badge bg-warning text-dark">
+          Arrivo: {{ filterOptions.arrivalAirport }}
+          <button class="btn-close ms-1" style="font-size: 0.6rem;" 
+                  (click)="removeFilter('arrivalAirport')"></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
