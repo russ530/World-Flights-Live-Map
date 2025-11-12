@@ -75,16 +75,33 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: #495057;
+  min-width: 60px;
+  display: inline-block;
+  text-align: center;
 }
 
-/* Responsive */
+/* Stili per il messaggio informativo */
+.alert-info {
+  border-left: 4px solid #0dcaf0;
+}
+
+/* Miglioramenti responsive */
 @media (max-width: 768px) {
-  .table-responsive {
+  .table th, .table td {
+    padding: 0.5rem;
     font-size: 0.8rem;
   }
   
-  .badge {
-    font-size: 0.65rem;
-    padding: 0.3em 0.6em;
+  .airport-code {
+    font-size: 0.85rem;
+  }
+  
+  .duration-badge {
+    font-size: 0.75rem;
+    min-width: 50px;
+  }
+  
+  .alert-info {
+    font-size: 0.85rem;
   }
 }

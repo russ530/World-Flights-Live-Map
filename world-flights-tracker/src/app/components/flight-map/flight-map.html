@@ -2,6 +2,9 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h5 class="mb-0">🗺️ Mappa Voli in Tempo Reale</h5>
     <div class="map-controls">
+      <button class="btn btn-outline-warning btn-sm me-2" (click)="toggleMockData()">
+        🧪 Toggle Mock
+      </button>
       <button class="btn btn-outline-primary btn-sm" (click)="refreshMap()">
         🔄 Aggiorna Mappa
       </button>
@@ -11,6 +14,7 @@
   <div class="map-info mb-2">
     <small class="text-muted">
       Voli mostrati sulla mappa: {{ getFlightsWithCoordinates().length }}
+      <span class="badge bg-warning text-dark ms-1" *ngIf="useMockData">MOCK</span>
     </small>
   </div>
 

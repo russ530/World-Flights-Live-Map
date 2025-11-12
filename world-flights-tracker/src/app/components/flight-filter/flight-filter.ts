@@ -35,7 +35,6 @@ export class FlightFilterComponent implements OnInit {
   }
 
   private loadDefaultFilters() {
-    // Questi verranno popolati dinamicamente dai dati
     this.statuses = [
       'active', 'scheduled', 'landed', 'cancelled', 'incident', 'diverted'
     ];
@@ -55,50 +54,52 @@ export class FlightFilterComponent implements OnInit {
     this.filtersChanged.emit(this.filterOptions);
   }
 
-  // Metodi per aggiornare le opzioni dai dati dei voli
   updateAirlinesFromFlights(flights: any[]) {
     const airlineSet = new Set<string>();
+    const airportSet = new Set<string>();
+    const statusSet = new Set<string>();
+
     flights.forEach(flight => {
       if (flight.airline?.name) {
         airlineSet.add(flight.airline.name);
       }
-    });
-    this.airlines = Array.from(airlineSet).sort();
-  }
-
-  updateAirportsFromFlights(flights: any[]) {
-    const airportSet = new Set<string>();
-    flights.forEach(flight => {
       if (flight.departure?.iata) {
         airportSet.add(flight.departure.iata);
       }
       if (flight.arrival?.iata) {
         airportSet.add(flight.arrival.iata);
       }
+      if (flight.flight_status) {
+        statusSet.add(flight.flight_status);
+      }
     });
+
+    this.airlines = Array.from(airlineSet).sort();
     this.airports = Array.from(airportSet).sort();
+    this.statuses = Array.from(statusSet).sort();
   }
+
   getStatusText(status: string): string {
-  const statusText: { [key: string]: string } = {
-    'active': 'In Volo',
-    'scheduled': 'Programmato',
-    'landed': 'Atterrato',
-    'cancelled': 'Cancellato',
-    'incident': 'Incidente',
-    'diverted': 'Deviato'
-  };
-  return statusText[status] || status;
-}
+    const statusText: { [key: string]: string } = {
+      'active': 'In Volo',
+      'scheduled': 'Programmato',
+      'landed': 'Atterrato',
+      'cancelled': 'Cancellato',
+      'incident': 'Incidente',
+      'diverted': 'Deviato'
+    };
+    return statusText[status] || status;
+  }
 
-hasActiveFilters(): boolean {
-  return !!this.filterOptions.airline || 
-         !!this.filterOptions.status || 
-         !!this.filterOptions.departureAirport || 
-         !!this.filterOptions.arrivalAirport;
-}
+  hasActiveFilters(): boolean {
+    return !!this.filterOptions.airline || 
+           !!this.filterOptions.status || 
+           !!this.filterOptions.departureAirport || 
+           !!this.filterOptions.arrivalAirport;
+  }
 
-removeFilter(filterType: keyof FilterOptions) {
-  this.filterOptions[filterType] = '';
-  this.updateFilters();
-}
+  removeFilter(filterType: keyof FilterOptions) {
+    this.filterOptions[filterType] = '';
+    this.updateFilters();
+  }
 }

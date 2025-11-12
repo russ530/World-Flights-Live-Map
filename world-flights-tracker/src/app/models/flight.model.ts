@@ -1,4 +1,3 @@
-// flight.model.ts
 export interface Flight {
   flight_date: string;
   flight_status: string;
@@ -6,6 +5,8 @@ export interface Flight {
     airport: string;
     iata: string;
     scheduled: string;
+    estimated?: string;  // Aggiungi
+    actual?: string;     // Aggiungi
     terminal?: string;
     gate?: string;
   };
@@ -13,16 +14,20 @@ export interface Flight {
     airport: string;
     iata: string;
     scheduled: string;
+    estimated?: string;  // Aggiungi
+    actual?: string;     // Aggiungi
     terminal?: string;
     gate?: string;
   };
   airline: {
     name: string;
     iata: string;
+    icao?: string;
   };
   flight: {
     number: string;
     iata: string;
+    icao?: string;
   };
   live?: {
     latitude: number;

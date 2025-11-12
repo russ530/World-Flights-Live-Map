@@ -1,4 +1,15 @@
 <div class="container mt-4">
+  <!-- Messaggio informativo -->
+  <div class="alert alert-info mb-4" *ngIf="!loading">
+    <small>
+      <strong>ℹ️ Informazioni:</strong> 
+      L'API free di Aviationstack restituisce principalmente voli di test concentrati in Asia. 
+      Per dati più diversificati sarebbe necessario un piano a pagamento.
+      <br>
+      <em>Aggiorna la pagina per ottenere un set di voli leggermente diverso.</em>
+    </small>
+  </div>
+
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
       <h2 class="mb-1">🛫 Voli Attivi in Tempo Reale</h2>
@@ -22,7 +33,6 @@
     (filtersChanged)="onFiltersChanged($event)">
   </app-flight-filter>
 
-  <!-- Resto del template rimane uguale ma usa filteredFlights invece di flights -->
   <!-- Messaggio di caricamento -->
   <div *ngIf="loading" class="text-center py-5">
     <div class="spinner-border text-primary" role="status">
@@ -58,32 +68,32 @@
       <tbody>
         <tr *ngFor="let flight of filteredFlights" class="flight-row">
           <td>
-            <strong>{{ flight.flight.number }}</strong>
+            <strong>{{ getFlightNumber(flight) }}</strong>
           </td>
           <td>
             <span class="airline-icon me-1">
-              {{ getAirlineIcon(flight.airline.iata) }}
+              {{ getAirlineIcon(getAirlineIata(flight)) }}
             </span>
-            {{ flight.airline.name }}
+            {{ getAirlineName(flight) }}
           </td>
           <td>
-            <div class="airport-code">{{ flight.departure.iata }}</div>
-            <small class="text-muted">{{ flight.departure.airport }}</small>
+            <div class="airport-code">{{ getDepartureAirport(flight) }}</div>
+            <small class="text-muted">{{ getDepartureAirportName(flight) }}</small>
           </td>
           <td>
-            <div class="airport-code">{{ flight.arrival.iata }}</div>
-            <small class="text-muted">{{ flight.arrival.airport }}</small>
+            <div class="airport-code">{{ getArrivalAirport(flight) }}</div>
+            <small class="text-muted">{{ getArrivalAirportName(flight) }}</small>
           </td>
-          <td>{{ formatDate(flight.departure.scheduled) }}</td>
+          <td>{{ formatDate(flight.flight_date) }}</td>
           <td>
-            <strong>{{ formatTime(flight.departure.scheduled) }}</strong>
+            <strong>{{ getDisplayTime(flight, 'departure') }}</strong>
           </td>
           <td>
-            <strong>{{ formatTime(flight.arrival.scheduled) }}</strong>
+            <strong>{{ getDisplayTime(flight, 'arrival') }}</strong>
           </td>
           <td>
             <span class="duration-badge">
-              {{ calculateDuration(flight.departure.scheduled, flight.arrival.scheduled) }}
+              {{ getDisplayDuration(flight) }}
             </span>
           </td>
           <td>
@@ -103,5 +113,10 @@
         Nessun volo attivo trovato.
       </p>
     </div>
+  </div>
+
+  <!-- Sezione Mappa -->
+  <div *ngIf="!loading && !error && filteredFlights.length > 0" class="mt-5">
+    <app-flight-map [flights]="filteredFlights"></app-flight-map>
   </div>
 </div>
