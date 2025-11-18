@@ -1,0 +1,103 @@
+Obiettivo dell'App
+
+World Flights Live Map è un'applicazione web interattiva che visualizza in tempo reale i voli aerei in tutto il mondo. L'applicazione permette agli utenti di:
+
+Monitorare la posizione e il percorso dei voli attualmente in aria
+Visualizzare informazioni dettagliate su ciascun volo
+Tracciare rotte e percorsi dei voli
+Identificare aeroporti di partenza e destinazione
+Osservare i modelli del traffico aereo globale
+API Scelta
+
+OpenSky Network API
+
+Link alla documentazione: https://docs.apilayer.com/aviationstack/docs/api-documentation
+
+Motivazione della scelta:
+
+Fornisce dati in tempo reale sui voli
+Accesso gratuito per uso non commerciale
+Ampia copertura globale
+Formato dati strutturato (JSON)
+Aggiornamenti frequenti dei dati
+Dati Visualizzati e Funzionalità
+
+Dati Principali Visualizzati
+
+Posizione dei Voli
+
+Coordinate geografiche (latitudine, longitudine)
+Altitudine e direzione
+Velocità e rotta
+Informazioni del Volo
+
+Codice ICAO del volo
+Vettore aereo
+Punto di partenza e destinazione
+Orari stimati
+Dati Tecnici
+
+Velocità verticale
+Angolo di virata
+Stato del volo (in decollo, atterraggio, in crociera)
+Funzionalità Supportate dai Dati
+
+Mappa Interattiva: Visualizzazione dei voli come marcatori animati
+Tracciamento Rotta: Linee che mostrano il percorso del volo
+Popup Informativi: Dettagli del volo al click
+Filtri e Ricerca: Ricerca per codice volo o vettore
+Aggiornamento Automatico: Dati in tempo reale
+Interazione Utente e Comportamento dell'Interfaccia
+
+1. Navigazione della Mappa
+
+Zoom: Scroll mouse/pinch per ingrandire/ridurre
+Pan: Click e drag per spostare la mappa
+Comportamento: I marcatori dei voli si adattano al livello di zoom
+2. Selezione Volo
+
+Click su marcatore: Apertura popup con:
+
+Codice volo e vettore
+Aeroporto partenza/destinazione
+Altitudine, velocità, direzione
+Pulsante "Traccia Volo"
+3. Tracciamento Volo
+
+Click "Traccia Volo":
+
+Visualizzazione rotta completa
+Linea di percorso dal punto di partenza a quello attuale
+Evidenziazione del volo selezionato
+4. Ricerca e Filtri
+
+Barra di ricerca:
+
+Input codice volo o vettore
+Filtraggio automatico dei risultati
+Zoom automatico sul volo trovato
+5. Aggiornamento Dati
+
+Automatico: Ogni 10-15 secondi
+Indicatore: Mostra stato "Ultimo aggiornamento"
+Animazione: Transizione fluida tra posizioni
+6. Legenda e Controlli
+
+Toggle layer: Mostra/nasconde rotte
+Legenda colori: Stato volo (es: in salita, in discesa, crociera)
+Controlli zoom: Bottoni +/- per navigazione precisa
+Architettura Tecnica
+
+Componenti Principali
+
+Frontend: HTML5, CSS3, JavaScript
+Mappa: Leaflet.js o OpenLayers
+Dati: OpenSky Network API REST
+Stile: CSS personalizzato per marcatori e popup
+
+Gestione Stato
+
+Array oggetti voli corrente
+Volo selezionato (se presente)
+Filtri applicati
+Viewport mappa corrente
