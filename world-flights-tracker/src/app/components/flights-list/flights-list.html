@@ -19,13 +19,16 @@
               class="text-primary">(filtrati)</span>
       </p>
     </div>
-    <button 
-      class="btn btn-primary" 
-      (click)="refreshFlights()"
-      [disabled]="loading">
-      <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
-      {{ loading ? 'Caricamento...' : '🔄 Aggiorna' }}
-    </button>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-secondary" (click)="scrollToMap()">Apri Mappa</button>
+      <button 
+        class="btn btn-primary" 
+        (click)="refreshFlights()"
+        [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        {{ loading ? 'Caricamento...' : '🔄 Aggiorna' }}
+      </button>
+    </div>
   </div>
 
   <!-- Componente Filtri -->
@@ -97,9 +100,9 @@
             </span>
           </td>
           <td>
-            <span [class]="getStatusBadgeClass(flight.flight_status)" class="badge">
-              {{ getStatusText(flight.flight_status) }}
-            </span>
+              <span [class]="getStatusBadgeClass(effectiveStatus(flight))" class="badge">
+                {{ getStatusText(effectiveStatus(flight)) }}
+              </span>
           </td>
         </tr>
       </tbody>
@@ -116,7 +119,7 @@
   </div>
 
   <!-- Sezione Mappa -->
-  <div *ngIf="!loading && !error && filteredFlights.length > 0" class="mt-5">
+  <div *ngIf="!loading && !error && filteredFlights.length > 0" class="mt-5" id="map-section">
     <app-flight-map [flights]="filteredFlights"></app-flight-map>
   </div>
 </div>
